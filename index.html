@@ -11,9 +11,35 @@
             margin: 50px;
         }
     </style>
+    <script>
+        // Function to send a request to the Rahti backend
+        function getSentiment() {
+            const inputText = document.getElementById('textInput').value;
+
+            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/sentiment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = `Sentiment: ${data.sentiment}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </head>
 <body>
     <h1>Hello, World!</h1>
     <p>Welcome to my first webpage.</p>
+
+    <input type="text" id="textInput" placeholder="Enter text here">
+    <button onclick="getSentiment()">Get Sentiment</button>
+
+    <p id="result"></p>
 </body>
 </html>
