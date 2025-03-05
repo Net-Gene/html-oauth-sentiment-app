@@ -2,14 +2,11 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: ./frontend # Directory containing your Dockerfile for httpd service
+    build: .
     ports:
       - "8080:80"
     volumes:
-      - ./frontend:/usr/local/apache2/htdocs
-    networks:
-      - app_network
+      - .:/usr/local/apache2/htdocs
 
 networks:
   app_network:
