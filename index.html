@@ -17,6 +17,11 @@
             const inputText = document.getElementById('textInput').value;
             const sessionId = localStorage.getItem('session_id');
 
+            if (!sessionId) {
+                alert('Please log in first.');
+                return;
+            }
+
             fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/sentiment', {
                 method: 'POST',
                 headers: {
@@ -76,6 +81,15 @@
                 console.error('Error:', error);
             });
         }
+
+        function checkLogin() {
+            const sessionId = localStorage.getItem('session_id');
+            if (!sessionId) {
+                alert('Please log in to continue.');
+            }
+        }
+
+        window.onload = checkLogin;
     </script>
 </head>
 <body>
