@@ -85,7 +85,10 @@
         function checkLogin() {
             const sessionId = localStorage.getItem('session_id');
             if (!sessionId) {
-                alert('Please log in to continue.');
+                document.getElementById('loginSection').scrollIntoView();
+            }
+            else {
+                document.getElementById('loginSection').innerText = `Logged in as ${sessionId}`;
             }
         }
 
@@ -93,6 +96,7 @@
     </script>
 </head>
 <body>
+    
     <h1>Hello, World!</h1>
     <p>Welcome to my first webpage.</p>
 
@@ -107,7 +111,7 @@
     <button onclick="register()">Register</button>
     <p id="registerResult"></p>
 
-    <h2>Login</h2>
+    <h2 id="loginSection">Login</h2>
     <input type="text" id="loginUsername" placeholder="Username">
     <input type="password" id="loginPassword" placeholder="Password">
     <button onclick="login()">Login</button>
