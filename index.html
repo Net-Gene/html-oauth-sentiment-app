@@ -31,6 +31,46 @@
                 console.error('Error:', error);
             });
         }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+
+            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('registerResult').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loginResult').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
     </script>
 </head>
 <body>
@@ -41,5 +81,17 @@
     <button onclick="getSentiment()">Get Sentiment</button>
 
     <p id="result"></p>
+
+    <h2>Register</h2>
+    <input type="text" id="registerUsername" placeholder="Username">
+    <input type="password" id="registerPassword" placeholder="Password">
+    <button onclick="register()">Register</button>
+    <p id="registerResult"></p>
+
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginResult"></p>
 </body>
 </html>
