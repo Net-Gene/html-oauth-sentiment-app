@@ -15,11 +15,18 @@
         // Function to send a request to the Rahti backend
         function getSentiment() {
             const inputText = document.getElementById('textInput').value;
+            const sessionId = localStorage.getItem('session_id');
+
+            if (!sessionId) {
+                alert('Please log in first.');
+                return;
+            }
 
             fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/sentiment', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': sessionId
                 },
                 body: JSON.stringify({ text: inputText })
             })
@@ -31,9 +38,66 @@
                 console.error('Error:', error);
             });
         }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+
+            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('registerResult').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loginResult').innerText = data.message;
+                if (data.session_id) {
+                    localStorage.setItem('session_id', data.session_id);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function checkLogin() {
+            localStorage.removeItem('session_id');
+            const sessionId = localStorage.getItem('session_id');
+            if (!sessionId) {
+                document.getElementById('loginSection').scrollIntoView();
+            }
+            else {
+                document.getElementById('loginSection').innerText = `Logged in as ${sessionId}`;
+            }
+        }
+
+        window.onload = checkLogin;
     </script>
 </head>
 <body>
+    
     <h1>Hello, World!</h1>
     <p>Welcome to my first webpage.</p>
 
@@ -41,5 +105,17 @@
     <button onclick="getSentiment()">Get Sentiment</button>
 
     <p id="result"></p>
+
+    <h2>Register</h2>
+    <input type="text" id="registerUsername" placeholder="Username">
+    <input type="password" id="registerPassword" placeholder="Password">
+    <button onclick="register()">Register</button>
+    <p id="registerResult"></p>
+
+    <h2 id="loginSection">Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginResult"></p>
 </body>
 </html>
