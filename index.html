@@ -83,6 +83,7 @@
         }
 
         function checkLogin() {
+            localStorage.removeItem('session_id');
             const sessionId = localStorage.getItem('session_id');
             if (!sessionId) {
                 document.getElementById('loginSection').scrollIntoView();
