@@ -13,13 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Log in to Azure Container Registry
-        run: echo "${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BCF32C14AA6E478283A065FBBE309F59}}" > azure_publish_profile.json
-
       - name: Build and push Docker image
         run: |
+          # Build the Docker image
           docker build -t myfrontendapp:latest .
+          
+          # Tag the image for Docker Hub
           docker tag myfrontendapp:latest mydockerhubusername/myfrontendapp:latest
+          
+          # Push the image to Docker Hub
           docker push mydockerhubusername/myfrontendapp:latest
 
       - name: Deploy to Azure Web App
