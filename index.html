@@ -92,7 +92,18 @@
                 document.getElementById('loginSection').innerText = `Logged in as ${sessionId}`;
             }
         }
-
+        function githubLogin() {
+            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/githubLogin', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('githubLoginResult').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
         window.onload = checkLogin;
     </script>
 </head>
@@ -116,6 +127,9 @@
     <input type="text" id="loginUsername" placeholder="Username">
     <input type="password" id="loginPassword" placeholder="Password">
     <button onclick="login()">Login</button>
+    <p id="loginResult"></p>
+
+    <button onclick="login()">Login to Github</button>
     <p id="loginResult"></p>
 </body>
 </html>
