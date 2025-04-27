@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Sentiment Analysis Frontend App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -135,24 +135,27 @@
     <h1>Hello, World!</h1>
     <p>Welcome to my first webpage.</p>
 
-    <input type="text" id="textInput" placeholder="Enter text here">
+    <input type="text" aria-label="Text input for sentiment analysis" id="textInput" placeholder="Enter text here">
     <button onclick="getSentiment()">Get Sentiment</button>
 
     <p id="result"></p>
 
     <h2>Register</h2>
-    <input type="text" id="registerUsername" placeholder="Username">
-    <input type="password" id="registerPassword" placeholder="Password">
+    <input type="text" aria-label="Register username" id="registerUsername" placeholder="Username">
+    <input type="password" aria-label="Register password" id="registerPassword" placeholder="Password">
     <button onclick="register()">Register</button>
     <p id="registerResult"></p>
 
     <h2 id="loginSection">Login</h2>
-    <input type="text" id="loginUsername" placeholder="Username">
-    <input type="password" id="loginPassword" placeholder="Password">
+    <input type="text" aria-label="Login username" id="loginUsername" placeholder="Username">
+    <input type="password" aria-label="Login password" id="loginPassword" placeholder="Password">
     <button onclick="login()">Login</button>
     <p id="loginResult"></p>
 
-    <button onclick="githubLogin()">Login</button>
+    <button onclick="githubLogin()" style="display: flex; align-items: center; gap: 8px; padding: 10px; background-color: #24292e; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px;">
+        Login with GitHub
+    </button>
 
     <p id="githubLoginResult"></p>
 </body>
