@@ -92,18 +92,7 @@
                 document.getElementById('loginSection').innerText = `Logged in as ${sessionId}`;
             }
         }
-        function githubLogin() {
-            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/githubLogin', {
-                method: 'GET'
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('githubLoginResult').innerText = data.message;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
+
         window.onload = checkLogin;
     </script>
 </head>
@@ -129,7 +118,6 @@
     <button onclick="login()">Login</button>
     <p id="loginResult"></p>
 
-    <button onclick="login()">Login to Github</button>
-    <p id="loginResult"></p>
+    <a href="https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&scope=user">Login with GitHub</a>
 </body>
 </html>
