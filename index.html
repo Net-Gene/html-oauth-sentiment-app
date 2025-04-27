@@ -92,34 +92,42 @@
                 document.getElementById('loginSection').innerText = `Logged in as ${sessionId}`;
             }
         }
-        function checkGithubLogin() {
+        function githubLogin() {
+            const clientId = "Ov23liZdOxyRrrGPGraM";
+            const redirectUri = window.location.origin; // Redirect back to the current page
+            const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user`;
+
+            window.location.href = githubAuthUrl; // Redirect to GitHub
+        }
+
+        // After redirect, extract the code and send it to the backend
+        window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
 
             if (code) {
-            fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/checkGithubLogin', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ code })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.session_id) {
-                localStorage.setItem('session_id', data.session_id);
-                document.getElementById('githubLoginResult').innerText = 'Logged in with GitHub successfully!';
-                } else {
-                document.getElementById('githubLoginResult').innerText = 'GitHub login failed.';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('githubLoginResult').innerText = 'An error occurred during GitHub login.';
-            });
+                fetch('https://cc-module-5-backend-git-cloud-computing-2025-dorian.2.rahtiapp.fi/githubLogin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.session_id) {
+                        localStorage.setItem('session_id', data.session_id);
+                        document.getElementById('githubLoginResult').innerText = 'Logged in with GitHub successfully!';
+                    } else {
+                        document.getElementById('githubLoginResult').innerText = 'GitHub login failed.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('githubLoginResult').innerText = 'An error occurred during GitHub login.';
+                });
             }
-        }
-        window.onload = checkLogin;
+        };
     </script>
 </head>
 <body>
@@ -144,9 +152,7 @@
     <button onclick="login()">Login</button>
     <p id="loginResult"></p>
 
-    <a href="https://github.com/login/oauth/authorize?client_id=Ov23liZdOxyRrrGPGraM&scope=user" target="_blank" rel="noopener noreferrer">Login with GitHub</a>
-
-    <button onclick="checkGithubLogin()">Check Github Authorization</button>
+    <button onclick="githubLogin()">Login</button>
 
     <p id="githubLoginResult"></p>
 </body>
