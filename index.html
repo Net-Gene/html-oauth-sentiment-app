@@ -117,7 +117,7 @@
                 .then(data => {
                     if (data.session_id) {
                         localStorage.setItem('session_id', data.session_id);
-                        document.getElementById('githubLoginResult').innerText = 'Logged in with GitHub successfully! Logged in as ${data.username}';
+                        document.getElementById('githubLoginResult').innerText = 'Logged in with GitHub successfully! Logged in as' + data.username;
                     } else {
                         document.getElementById('githubLoginResult').innerText = 'GitHub login failed.';
                     }
